@@ -18,10 +18,12 @@ import java.util.Set;
 public class EndActivity extends AppCompatActivity {
 
     private TextView textViewScore;
+    private TextView textViewTime;
     private ListView listViewHighScores;
     private Button buttonRestart;
     private Button buttonMainMenu;
     private int score;
+    private long time;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,13 +31,16 @@ public class EndActivity extends AppCompatActivity {
         setContentView(R.layout.activity_end);
 
         textViewScore = findViewById(R.id.textViewScore);
+        textViewTime = findViewById(R.id.textViewTime);
         listViewHighScores = findViewById(R.id.listViewHighScores);
         buttonRestart = findViewById(R.id.buttonRestart);
         buttonMainMenu = findViewById(R.id.buttonMainMenu);
 
-        // Récupérer le score du joueur
+        // Récupérer le score et le temps du joueur
         score = getIntent().getIntExtra("score", 0);
+        time = getIntent().getLongExtra("time", 0);
         textViewScore.setText("Votre score : " + score);
+        textViewTime.setText("Temps : " + formatTime(time));
 
         // Afficher les meilleurs scores
         displayHighScores();
@@ -43,7 +48,8 @@ public class EndActivity extends AppCompatActivity {
         buttonRestart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(EndActivity.this, QuizActivity.class);
+                // Recommencer une partie en redirigeant vers DifficultyActivity
+                Intent intent = new Intent(EndActivity.this, DifficultyActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -59,6 +65,12 @@ public class EndActivity extends AppCompatActivity {
         });
     }
 
+    private String formatTime(long time) {
+        int seconds = (int) (time / 1000) % 60;
+        int minutes = (int) (time / (1000 * 60)) % 60;
+        return String.format("%02d:%02d", minutes, seconds);
+    }
+
     private void displayHighScores() {
         SharedPreferences prefs = getSharedPreferences("quizApp", MODE_PRIVATE);
         Set<String> highScoresSet = prefs.getStringSet("highScores", new HashSet<String>());
@@ -66,7 +78,7 @@ public class EndActivity extends AppCompatActivity {
         Collections.sort(highScoresList, Collections.reverseOrder());
 
         // Ajouter le score actuel à la liste
-        highScoresList.add(String.valueOf(score));
+        highScoresList.add(score + " - " + formatTime(time));
 
         // Garder seulement les 10 meilleurs scores
         if (highScoresList.size() > 10) {

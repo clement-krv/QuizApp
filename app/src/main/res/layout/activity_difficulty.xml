@@ -1,0 +1,37 @@
+<!-- activity_difficulty.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:padding="16dp"
+              tools:context=".DifficultyActivity">
+
+    <TextView
+            android:id="@+id/textViewSelectDifficulty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sélectionnez la difficulté"
+            android:textSize="18sp"
+            android:paddingBottom="16dp" />
+
+    <Button
+            android:id="@+id/buttonEasy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Facile" />
+
+    <Button
+            android:id="@+id/buttonNormal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Normal"
+            android:layout_marginTop="8dp" />
+
+    <Button
+            android:id="@+id/buttonHard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Difficile"
+            android:layout_marginTop="8dp" />
+</LinearLayout>

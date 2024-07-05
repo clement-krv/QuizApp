@@ -36,8 +36,8 @@ public class StartActivity extends AppCompatActivity {
                 editor.putString("playerName", playerName);
                 editor.apply();
 
-                // Start QuizActivity
-                Intent intent = new Intent(StartActivity.this, QuizActivity.class);
+                // Start DifficultyActivity
+                Intent intent = new Intent(StartActivity.this, DifficultyActivity.class);
                 startActivity(intent);
             }
         });
