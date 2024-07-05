@@ -3,6 +3,7 @@ package fr.decouverte.quizzapp;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -41,6 +42,10 @@ public class EndActivity extends AppCompatActivity {
         time = getIntent().getLongExtra("time", 0);
         textViewScore.setText("Votre score : " + score);
         textViewTime.setText("Temps : " + formatTime(time));
+
+        // Jouer le son de fin
+        MediaPlayer mediaPlayer = MediaPlayer.create(EndActivity.this, R.raw.end_sound);
+        mediaPlayer.start();
 
         // Afficher les meilleurs scores
         displayHighScores();

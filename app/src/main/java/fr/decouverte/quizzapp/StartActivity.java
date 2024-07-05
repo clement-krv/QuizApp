@@ -3,6 +3,7 @@ package fr.decouverte.quizzapp;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -46,6 +47,10 @@ public class StartActivity extends AppCompatActivity {
             SharedPreferences.Editor editor = prefs.edit();
             editor.putString("playerName", playerName);
             editor.apply();
+
+            // Play start sound
+            MediaPlayer mediaPlayer = MediaPlayer.create(StartActivity.this, R.raw.start_sound);
+            mediaPlayer.start();
 
             // Start DifficultyActivity
             Intent intent = new Intent(StartActivity.this, DifficultyActivity.class);
