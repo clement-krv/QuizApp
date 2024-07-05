@@ -15,6 +15,7 @@ public class StartActivity extends AppCompatActivity {
 
     private EditText editTextName;
     private Button buttonStart;
+    private Button buttonViewHighScores;
     private Switch switchDarkMode;
     private SharedPreferences prefs;
 
@@ -34,6 +35,7 @@ public class StartActivity extends AppCompatActivity {
 
         editTextName = findViewById(R.id.editTextName);
         buttonStart = findViewById(R.id.buttonStart);
+        buttonViewHighScores = findViewById(R.id.buttonViewHighScores);
         switchDarkMode = findViewById(R.id.switchDarkMode);
 
         // Retrieve saved name and dark mode preference
@@ -67,6 +69,11 @@ public class StartActivity extends AppCompatActivity {
             } else {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
             }
+        });
+
+        buttonViewHighScores.setOnClickListener(v -> {
+            Intent intent = new Intent(StartActivity.this, HighScoresActivity.class);
+            startActivity(intent);
         });
     }
 }

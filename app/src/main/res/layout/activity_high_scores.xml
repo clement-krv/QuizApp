@@ -1,0 +1,32 @@
+<!-- activity_high_scores.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:padding="16dp"
+              tools:context=".HighScoresActivity">
+
+    <TextView
+            android:id="@+id/textViewTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Meilleurs scores"
+            android:textSize="18sp"
+            android:paddingBottom="16dp" />
+
+    <ListView
+            android:id="@+id/listViewHighScores"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:dividerHeight="1dp"
+            android:paddingTop="8dp" />
+
+    <Button
+            android:id="@+id/buttonBackToMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Retour au menu principal"
+            android:layout_marginTop="16dp" />
+</LinearLayout>

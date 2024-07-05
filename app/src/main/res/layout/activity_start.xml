@@ -27,4 +27,11 @@
             android:layout_height="wrap_content"
             android:text="Start Quiz"
             android:layout_marginTop="16dp" />
+
+    <Button
+            android:id="@+id/buttonViewHighScores"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Voir les meilleurs scores"
+            android:layout_marginTop="16dp" />
 </LinearLayout>
