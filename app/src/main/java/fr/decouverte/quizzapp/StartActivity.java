@@ -23,6 +23,7 @@ public class StartActivity extends AppCompatActivity {
     private EditText editTextName;
     private Button buttonStart;
     private Button buttonViewHighScores;
+    private Button buttonClearPrefs;
     private Switch switchDarkMode;
     private Spinner spinnerLanguage;
     private SharedPreferences prefs;
@@ -63,6 +64,7 @@ public class StartActivity extends AppCompatActivity {
         editTextName = findViewById(R.id.editTextName);
         buttonStart = findViewById(R.id.buttonStart);
         buttonViewHighScores = findViewById(R.id.buttonViewHighScores);
+        buttonClearPrefs = findViewById(R.id.buttonClearPrefs);
         switchDarkMode = findViewById(R.id.switchDarkMode);
         spinnerLanguage = findViewById(R.id.spinnerLanguage);
 
@@ -136,6 +138,19 @@ public class StartActivity extends AppCompatActivity {
 
         buttonViewHighScores.setOnClickListener(v -> {
             Intent intent = new Intent(StartActivity.this, HighScoresActivity.class);
+            startActivity(intent);
+        });
+
+        buttonClearPrefs.setOnClickListener(v -> {
+            // Effacer toutes les préférences
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.clear();
+            editor.apply();
+
+            // Redémarrer l'activité pour appliquer les changements
+            isRestarting = true;
+            Intent intent = getIntent();
+            finish();
             startActivity(intent);
         });
     }

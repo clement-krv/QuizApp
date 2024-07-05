@@ -17,6 +17,7 @@
     <string name="incorrect">Incorrect</string>
     <string name="easter_egg_message">Vous n\'êtes pas le castor le plus utile au barrage</string>
     <string name="submit">Valider</string>
+    <string name="clear_preferences">Effacer les préférences</string>
     <string-array name="languages">
         <item>Français</item>
         <item>English</item>
