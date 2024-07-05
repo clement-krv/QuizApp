@@ -1,4 +1,3 @@
-// QuizActivity.java
 package fr.decouverte.quizzapp;
 
 import android.content.Intent;
@@ -89,6 +88,7 @@ public class QuizActivity extends AppCompatActivity {
         textViewQuestion = findViewById(R.id.textViewQuestion);
         radioGroupAnswers = findViewById(R.id.radioGroupAnswers);
         buttonSubmit = findViewById(R.id.buttonSubmit);
+        buttonSubmit.setText(R.string.submit);
         textViewProgress = findViewById(R.id.textViewProgress);
         chronometer = findViewById(R.id.chronometer);
 
@@ -111,23 +111,30 @@ public class QuizActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 int selectedId = radioGroupAnswers.getCheckedRadioButtonId();
+                int selectedIndex = -1;
                 if (selectedId != -1) {
                     RadioButton selectedRadioButton = findViewById(selectedId);
-                    int selectedIndex = radioGroupAnswers.indexOfChild(selectedRadioButton);
+                    selectedIndex = radioGroupAnswers.indexOfChild(selectedRadioButton);
+                }
 
-                    int actualQuestionIndex = questionOrder.get(currentQuestion);
-                    playerAnswers.set(currentQuestion, selectedIndex); // Sauvegarder la réponse du joueur
-                    if (selectedIndex == correctAnswers[actualQuestionIndex]) {
-                        score++;
-                    }
+                int actualQuestionIndex = questionOrder.get(currentQuestion);
+                playerAnswers.set(currentQuestion, selectedIndex); // Sauvegarder la réponse du joueur
+                if (selectedIndex == correctAnswers[actualQuestionIndex]) {
+                    score++;
+                }
 
-                    currentQuestion++;
-                    if (currentQuestion < numberOfQuestions) {
-                        loadQuestion();
+                currentQuestion++;
+                if (currentQuestion < numberOfQuestions) {
+                    loadQuestion();
+                } else {
+                    chronometer.stop();
+                    long elapsedMillis = SystemClock.elapsedRealtime() - chronometer.getBase();
+
+                    if (numberOfQuestions == 20 && score == 0) {
+                        // Toutes les réponses sont incorrectes en mode difficile, afficher l'Easter Egg
+                        Intent intent = new Intent(QuizActivity.this, EasterEggActivity.class);
+                        startActivity(intent);
                     } else {
-                        chronometer.stop();
-                        long elapsedMillis = SystemClock.elapsedRealtime() - chronometer.getBase();
-
                         // Fin du quiz, navigation vers EndActivity avec le score, le temps et les réponses du joueur
                         Intent intent = new Intent(QuizActivity.this, EndActivity.class);
                         intent.putExtra("score", score);
@@ -136,8 +143,8 @@ public class QuizActivity extends AppCompatActivity {
                         intent.putIntegerArrayListExtra("playerAnswers", playerAnswers);
                         intent.putIntegerArrayListExtra("questionOrder", new ArrayList<>(questionOrder));
                         startActivity(intent);
-                        finish();
                     }
+                    finish();
                 }
             }
         });
@@ -158,6 +165,6 @@ public class QuizActivity extends AppCompatActivity {
         for (int i = 0; i < 4; i++) {
             ((RadioButton) radioGroupAnswers.getChildAt(i)).setText(answers[questionIndex][i]);
         }
-        textViewProgress.setText("Question " + (currentQuestion + 1) + "/" + numberOfQuestions);
+        textViewProgress.setText(getString(R.string.question) + " " + (currentQuestion + 1) + "/" + numberOfQuestions);
     }
 }

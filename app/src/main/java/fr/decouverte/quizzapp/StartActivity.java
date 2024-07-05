@@ -26,11 +26,24 @@ public class StartActivity extends AppCompatActivity {
     private Switch switchDarkMode;
     private Spinner spinnerLanguage;
     private SharedPreferences prefs;
+    private boolean isRestarting = false; // Ajoutez cette variable
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // Appliquer le thème avant de définir le contenu
         prefs = getSharedPreferences("quizApp", MODE_PRIVATE);
+
+        // Vérifier si c'est le premier lancement
+        boolean isFirstLaunch = prefs.getBoolean("isFirstLaunch", true);
+        if (isFirstLaunch) {
+            // Définir la langue par défaut sur le français
+            setLocale("fr");
+            // Mettre à jour la préférence pour indiquer que ce n'est plus le premier lancement
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putBoolean("isFirstLaunch", false);
+            editor.apply();
+        }
+
+        // Appliquer le thème avant de définir le contenu
         boolean isDarkMode = prefs.getBoolean("darkMode", false);
         if (isDarkMode) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
@@ -39,6 +52,12 @@ public class StartActivity extends AppCompatActivity {
         }
 
         super.onCreate(savedInstanceState);
+
+        if (isRestarting) { // Ajoutez cette condition
+            isRestarting = false;
+            return;
+        }
+
         setContentView(R.layout.activity_start);
 
         editTextName = findViewById(R.id.editTextName);
@@ -107,6 +126,12 @@ public class StartActivity extends AppCompatActivity {
             } else {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
             }
+
+            // Redémarrer l'activité pour appliquer le changement de thème
+            isRestarting = true;
+            Intent intent = getIntent();
+            finish();
+            startActivity(intent);
         });
 
         buttonViewHighScores.setOnClickListener(v -> {
@@ -128,6 +153,7 @@ public class StartActivity extends AppCompatActivity {
         editor.apply();
 
         // Restart activity to apply the language change
+        isRestarting = true;
         Intent intent = getIntent();
         finish();
         startActivity(intent);
