@@ -1,6 +1,7 @@
 // QuizActivity.java
 package fr.decouverte.quizzapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -66,8 +67,11 @@ public class QuizActivity extends AppCompatActivity {
                     if (currentQuestion < questions.length) {
                         loadQuestion();
                     } else {
-                        // Fin du quiz
-                        // TODO: Naviguer vers l'écran de fin et afficher le score
+                        // Fin du quiz, navigation vers EndActivity avec le score
+                        Intent intent = new Intent(QuizActivity.this, EndActivity.class);
+                        intent.putExtra("score", score);
+                        startActivity(intent);
+                        finish();
                     }
                 }
             }
@@ -76,6 +80,7 @@ public class QuizActivity extends AppCompatActivity {
 
     private void loadQuestion() {
         textViewQuestion.setText(questions[currentQuestion]);
+        radioGroupAnswers.clearCheck();  // Réinitialise la sélection du RadioGroup
         for (int i = 0; i < 4; i++) {
             ((RadioButton) radioGroupAnswers.getChildAt(i)).setText(answers[currentQuestion][i]);
         }
