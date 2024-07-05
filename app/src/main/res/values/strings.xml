@@ -1,4 +1,22 @@
 <resources>
-    <string name="app_name">QuizzApp</string>
-    <string name="mode_sombre">Mode sombre</string>
+    <string name="app_name">QuizApp</string>
+    <string name="enter_name">Entrez votre nom</string>
+    <string name="start_quiz">Commencer le quiz</string>
+    <string name="view_high_scores">Voir les meilleurs scores</string>
+    <string name="dark_mode">Mode sombre</string>
+    <string name="difficulty_easy">Facile</string>
+    <string name="difficulty_normal">Normal</string>
+    <string name="difficulty_hard">Difficile</string>
+    <string name="question">Question</string>
+    <string name="your_score">Votre score : </string>
+    <string name="time">Temps : </string>
+    <string name="high_scores">Meilleurs scores : </string>
+    <string name="restart_quiz">Recommencer une partie</string>
+    <string name="main_menu">Retour au menu principal</string>
+    <string name="correct">Correct</string>
+    <string name="incorrect">Incorrect</string>
+    <string-array name="languages">
+        <item>Français</item>
+        <item>English</item>
+    </string-array>
 </resources>

@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">QuizApp</string>
+    <string name="enter_name">Enter your name</string>
+    <string name="start_quiz">Start Quiz</string>
+    <string name="view_high_scores">View High Scores</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="difficulty_easy">Easy</string>
+    <string name="difficulty_normal">Normal</string>
+    <string name="difficulty_hard">Hard</string>
+    <string name="question">Question</string>
+    <string name="your_score">Your Score: </string>
+    <string name="time">Time: </string>
+    <string name="high_scores">High Scores: </string>
+    <string name="restart_quiz">Restart Quiz</string>
+    <string name="main_menu">Main Menu</string>
+    <string name="correct">Correct</string>
+    <string name="incorrect">Incorrect</string>
+    <string-array name="languages">
+        <item>Français</item>
+        <item>English</item>
+    </string-array>
+</resources>
