@@ -54,8 +54,9 @@ public class StartActivity extends AppCompatActivity {
             MediaPlayer mediaPlayer = MediaPlayer.create(StartActivity.this, R.raw.start_sound);
             mediaPlayer.start();
 
-            // Start DifficultyActivity
+            // Start QuizActivity
             Intent intent = new Intent(StartActivity.this, DifficultyActivity.class);
+            intent.putExtra("playerName", playerName);
             startActivity(intent);
         });
 

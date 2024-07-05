@@ -12,6 +12,7 @@ public class DifficultyActivity extends AppCompatActivity {
     private Button buttonEasy;
     private Button buttonNormal;
     private Button buttonHard;
+    private String playerName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +22,8 @@ public class DifficultyActivity extends AppCompatActivity {
         buttonEasy = findViewById(R.id.buttonEasy);
         buttonNormal = findViewById(R.id.buttonNormal);
         buttonHard = findViewById(R.id.buttonHard);
+
+        playerName = getIntent().getStringExtra("playerName");
 
         buttonEasy.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,6 +50,7 @@ public class DifficultyActivity extends AppCompatActivity {
     private void startQuiz(int numberOfQuestions) {
         Intent intent = new Intent(DifficultyActivity.this, QuizActivity.class);
         intent.putExtra("numberOfQuestions", numberOfQuestions);
+        intent.putExtra("playerName", playerName);
         startActivity(intent);
         finish();
     }

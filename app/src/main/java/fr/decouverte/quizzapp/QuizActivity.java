@@ -78,6 +78,8 @@ public class QuizActivity extends AppCompatActivity {
     private int numberOfQuestions = 5; // Par défaut, facile
 
     private List<Integer> questionOrder; // Pour stocker l'ordre des questions
+    private ArrayList<Integer> playerAnswers; // Pour stocker les réponses du joueur
+    private String playerName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,12 +94,16 @@ public class QuizActivity extends AppCompatActivity {
 
         // Récupérer le nombre de questions depuis l'intent
         numberOfQuestions = getIntent().getIntExtra("numberOfQuestions", 5);
+        playerName = getIntent().getStringExtra("playerName");
 
         chronometer.setBase(SystemClock.elapsedRealtime());
         chronometer.start();
 
         // Mélanger les questions
         generateQuestionOrder();
+
+        // Initialiser la liste des réponses du joueur
+        playerAnswers = new ArrayList<>(Collections.nCopies(numberOfQuestions, -1));
 
         loadQuestion();
 
@@ -110,6 +116,7 @@ public class QuizActivity extends AppCompatActivity {
                     int selectedIndex = radioGroupAnswers.indexOfChild(selectedRadioButton);
 
                     int actualQuestionIndex = questionOrder.get(currentQuestion);
+                    playerAnswers.set(currentQuestion, selectedIndex); // Sauvegarder la réponse du joueur
                     if (selectedIndex == correctAnswers[actualQuestionIndex]) {
                         score++;
                     }
@@ -121,10 +128,13 @@ public class QuizActivity extends AppCompatActivity {
                         chronometer.stop();
                         long elapsedMillis = SystemClock.elapsedRealtime() - chronometer.getBase();
 
-                        // Fin du quiz, navigation vers EndActivity avec le score et le temps
+                        // Fin du quiz, navigation vers EndActivity avec le score, le temps et les réponses du joueur
                         Intent intent = new Intent(QuizActivity.this, EndActivity.class);
                         intent.putExtra("score", score);
                         intent.putExtra("time", elapsedMillis);
+                        intent.putExtra("playerName", playerName);
+                        intent.putIntegerArrayListExtra("playerAnswers", playerAnswers);
+                        intent.putIntegerArrayListExtra("questionOrder", new ArrayList<>(questionOrder));
                         startActivity(intent);
                         finish();
                     }
