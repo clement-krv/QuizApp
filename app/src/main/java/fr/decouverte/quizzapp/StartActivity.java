@@ -4,41 +4,63 @@ package fr.decouverte.quizzapp;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 public class StartActivity extends AppCompatActivity {
 
     private EditText editTextName;
     private Button buttonStart;
+    private Switch switchDarkMode;
+    private SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Appliquer le thème avant de définir le contenu
+        prefs = getSharedPreferences("quizApp", MODE_PRIVATE);
+        boolean isDarkMode = prefs.getBoolean("darkMode", false);
+        if (isDarkMode) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
         editTextName = findViewById(R.id.editTextName);
         buttonStart = findViewById(R.id.buttonStart);
+        switchDarkMode = findViewById(R.id.switchDarkMode);
 
-        // Retrieve saved name
-        SharedPreferences prefs = getSharedPreferences("quizApp", MODE_PRIVATE);
+        // Retrieve saved name and dark mode preference
         String savedName = prefs.getString("playerName", "");
         editTextName.setText(savedName);
+        switchDarkMode.setChecked(isDarkMode);
 
-        buttonStart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String playerName = editTextName.getText().toString();
-                // Save player name
-                SharedPreferences.Editor editor = prefs.edit();
-                editor.putString("playerName", playerName);
-                editor.apply();
+        buttonStart.setOnClickListener(v -> {
+            String playerName = editTextName.getText().toString();
+            // Save player name
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putString("playerName", playerName);
+            editor.apply();
 
-                // Start DifficultyActivity
-                Intent intent = new Intent(StartActivity.this, DifficultyActivity.class);
-                startActivity(intent);
+            // Start DifficultyActivity
+            Intent intent = new Intent(StartActivity.this, DifficultyActivity.class);
+            startActivity(intent);
+        });
+
+        switchDarkMode.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putBoolean("darkMode", isChecked);
+            editor.apply();
+
+            if (isChecked) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
             }
         });
     }

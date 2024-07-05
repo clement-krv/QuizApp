@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">QuizzApp</string>
+    <string name="mode_sombre">Mode sombre</string>
 </resources>

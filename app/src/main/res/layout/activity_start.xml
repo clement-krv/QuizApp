@@ -14,9 +14,17 @@
             android:hint="Enter your name"
             android:inputType="textPersonName" />
 
+    <Switch
+            android:id="@+id/switchDarkMode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mode sombre"
+            android:paddingTop="16dp" />
+
     <Button
             android:id="@+id/buttonStart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Start Quiz" />
+            android:text="Start Quiz"
+            android:layout_marginTop="16dp" />
 </LinearLayout>
